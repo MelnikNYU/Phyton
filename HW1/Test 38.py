@@ -54,3 +54,44 @@ def search(file_name, stroka):
     if a != 123:
         print("нет такого")
     data.close()
+
+def interface():
+    print(" 1 - добавление контакта \n 2 - вывод всех \n 3 - поиск по фамилии \n 4 - выход")
+    enter = int(input("Введите желаемый вариант "))
+    return enter
+
+
+from functional import *
+from interface import start
+
+path = "phone_book.txt"
+
+start()
+
+actions = {"1": "list",
+           "2": "record",
+           "3": "search",
+           "4": "change",
+           "5": "delete",
+           "s": "stop"}
+action = None
+
+while action != "s":
+    print("What can I do?", *[f"{i} - {actions[i]}" for i in actions])
+    action = input()
+    while action not in actions:
+        print("What can I do?", *[f"{i} - {actions[i]}" for i in actions])
+        action = input()
+        if action not in actions:
+            print("Data incorrect")
+    if action != "s":
+        if action == "1":
+            print_records(path)
+        elif action == "2":
+            input_records(path)
+        elif action == "3":
+            find_records(path, *find_char())
+        elif action == "4":
+            change_records(path)
+        elif action == "5":
+            delete_records(path)
